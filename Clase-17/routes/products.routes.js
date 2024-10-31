@@ -61,6 +61,7 @@ productsRoutes.get('/', async (req, res)=> {
             ok: true,
             status: 200,
             payload: {
+                message: "Product obtained",
                 products: []
             }
         }
@@ -87,6 +88,39 @@ productsRoutes.get('/', async (req, res)=> {
 })
 
 //POST / => Crear un producto
+productsRoutes.post('/api/products', async (request, response) => {
+    try {
+        let products
+    const result = await filesystem.promises.readFile('./data/products.json' , 'utf-8')
+    if(!result){
+        products = []
+    }
+    else{
+        //En caso de que haya productos
+        products = JSON.parse(result)
+    }
+    
+    let product = request.body
+    product.id = crypto.randomUUID()
+    
+    products.push(product)
+    await filesystem.promises.writeFile('./data/products.json', JSON.stringify(products), {encoding: 'utf-8'})
+
+    response.send(product)
+    }
+    
+    catch (error){
+        console.error('Error al crear producto', error)
+        res.json({
+            ok: false,
+            status: 500,
+            payload: {
+                message: 'Internal server error',
+                detail: error.message
+            }
+        })
+    }
+})
 
 //PUT /:product_id => actualizar un producto
 
