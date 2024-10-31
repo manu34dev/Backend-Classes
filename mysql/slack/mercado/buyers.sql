@@ -1,0 +1,9 @@
+CREATE TABLE buyer (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(70) NOT NULL UNIQUE,
+    adress VARCHAR(70) NOT NULL,
+    phone_number INT NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    create_at DATE DEFAULT CURRENT_DATE 
+)
