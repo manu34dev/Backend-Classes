@@ -160,12 +160,11 @@ app.post('/api/products', async (request, response) => {
     }
     
     let product = request.body
-    product.id = crypto.randomUUID()
     
     products.push(product)
     await filesystem.promises.writeFile('./data/products.json', JSON.stringify(products), {encoding: 'utf-8'})
 
-    response.send('producto registrado con exito')
+    response.send()
 })
 
 app.use ('/api/products', productRouter)

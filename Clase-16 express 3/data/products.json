@@ -1,7 +1,6 @@
-[
-    {"title":"marter race",
-    "price":1000,
-    "category":"tech",
-    "stock":1,
-    "id":"4e011aaa-17cb-4f4d-ac8f-ddca297e4d54"}
-]
+[{
+    "title":"Product 1",
+    "price":100,"id":1,
+    "category":"none",
+    "stock":10},
+    null,null,null,null,null]

@@ -1,0 +1,7 @@
+<h1>Detalle del producto: {{this.data.product.nombre}}</h1>
+<p>{{this.data.product.descripcion}}</p>
+<span>Precio: ${{this.data.product.precio}}</span>
+{{#if this.data.product.esCaro}}
+    <span>Es caro, cuidado</span>
+{{/if}}
+<span>Cantidad disponible: {{this.data.product.stock}} Unidades</span>

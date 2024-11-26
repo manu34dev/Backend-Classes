@@ -1,0 +1,33 @@
+<h1>Formulario de producto</h1>
+<form action="/products/new" method="POST">
+    <div>
+        <label for="nombre">Nombre:</label>
+        <input id="nombre" name="nombre" placeholder="ingrese el nombre del producto..." onchange="validateInput()" value="{{this.data.form_state.nombre}}">
+        {{#if this.data.errors.nombre}}
+            <span>{{this.data.errors.nombre}}</span>
+        {{/if}}
+    </div>
+    <div>
+        <label for="precio">Precio:</label>
+        <input id="precio" name="precio" placeholder="ingrese el precio del producto..." onchange="validateInput()" value="{{this.data.form_state.precio}}">
+        {{#if this.data.errors.precio}}
+            <span>{{this.data.errors.precio}}</span>
+        {{/if}}
+    </div>
+    <div>
+        <label for="stock">Stock:</label>
+        <input id="stock" name="stock" placeholder="ingrese el stock del producto..." onchange="validateInput()" value="{{this.data.form_state.stock}}">
+        {{#if this.data.errors.stock}}
+            <span>{{this.data.errors.stock}}</span>
+        {{/if}}
+    </div>
+    <div>
+        <label for="descripcion">Descipcion:</label>
+        <textarea id="descripcion" name="descripcion" placeholder="ingrese una descripcion del producto..." value="{{this.data.form_state.descripcion}}"
+        >
+        </textarea>
+    </div>
+    <input type="submit">
+</form>
+
+<script type="text/javascript" src="/js/formValidation.js"></script>

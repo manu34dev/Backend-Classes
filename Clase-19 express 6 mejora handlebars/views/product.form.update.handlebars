@@ -1,0 +1,33 @@
+<h1>Actualizar producto</h1>
+<form action="/products/{{this.data.product.id}}" method="POST">
+<div>
+        <label for="nombre">Nombre:</label>
+        <input id="nombre" name="nombre" placeholder="Escriba el nombre del producto..." onchange="validateInput()" value="{{this.data.form_state.product.nombre}}"/>
+        {{#if this.data.errors.nombre}}
+            <span>{{this.data.errors.nombre}}</span>
+        {{/if}}
+    </div>
+    <div>
+        <label for="precio">Precio:</label>
+        <input id="precio" name="precio" placeholder="Escriba el precio del producto..." onchange="validateInput()"  value="{{this.data.form_state.product.precio}}"/>
+        {{#if this.data.errors.precio}}
+            <span>{{this.data.errors.precio}}</span>
+        {{/if}}
+    </div>
+    <div>
+        <label for="stock">Stock:</label>
+        <input id="stock" name="stock" placeholder="Escriba el stock del producto..." onchange="validateInput()"  value="{{this.data.form_state.product.stock}}"/>
+        {{#if this.data.errors.stock}}
+            <span>{{this.data.errors.stock}}</span>
+        {{/if}}
+    </div>
+    <div>
+        <label for="descripcion">Descripcion:</label>
+        <textarea id="descripcion" name="descripcion" placeholder="Escriba la descripcion del producto..."
+             value="{{this.data.form_state.product.descripcion}}"
+        >
+        </textarea>
+    </div>
+    <input type="submit"/>
+</form>
+<a href="/">Cancelar</a>
