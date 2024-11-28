@@ -29,13 +29,18 @@ export const GET = async (URL_API, params) => {
 	}
 }
 
-const unnauthenticatedHeaders = new Headers()
-unnauthenticatedHeaders.set('Content-Type', 'application/json')
-unnauthenticatedHeaders.set('x-api-key', 'cf336ca7-b72f-4389-b939-f51bfb8b7d0e')
+const getunnauthenticatedHeaders = () =>{
+	const unnauthenticatedHeaders = new Headers()
+	unnauthenticatedHeaders.set('Content-Type', 'application/json')
+	unnauthenticatedHeaders.set('x-api-key', 'cf336ca7-b72f-4389-b939-f51bfb8b7d0e')
+	return unnauthenticatedHeaders
+}
 
-const authenticatedHeaders = new Headers()
-authenticatedHeaders.set('Content-Type', 'application/json')
-authenticatedHeaders.set('x-api-key', 'cf336ca7-b72f-4389-b939-f51bfb8b7d0e')
-authenticatedHeaders.set('Authorization', `Bearer ${sessionStorage.getItem('accessToken')}`)
-
-export {unnauthenticatedHeaders, authenticatedHeaders}
+const getauthenticatedHeaders = () =>{
+	const authenticatedHeaders = new Headers()
+	authenticatedHeaders.set('Content-Type', 'application/json')
+	authenticatedHeaders.set('x-api-key', 'cf336ca7-b72f-4389-b939-f51bfb8b7d0e')	
+	authenticatedHeaders.set('Authorization', `Bearer ${sessionStorage.getItem('accessToken')}`)
+	return authenticatedHeaders
+}
+export {getunnauthenticatedHeaders, getauthenticatedHeaders}

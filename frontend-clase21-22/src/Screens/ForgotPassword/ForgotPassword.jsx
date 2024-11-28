@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { extractFormData } from "../../Utils/extractFormData";
-import { POST, unnauthenticatedHeaders } from "../../fetching/http.fetching";
+import { POST, getunnauthenticatedHeaders } from "../../fetching/http.fetching";
 
 
 const ForgotPassword = () => {
@@ -18,7 +18,7 @@ const ForgotPassword = () => {
 			console.log(form_values_object)
 			const body = await POST('http://localhost:3000/api/auth/forgot-password', 
 			{
-				headers: unnauthenticatedHeaders,
+				headers: getunnauthenticatedHeaders,
 				body: JSON.stringify(form_values_object)
 			})
 			//const body = await sendEmailForgot(form_values_object)

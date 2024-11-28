@@ -14,7 +14,7 @@ try{
             return {
                 ...product._doc, 
                 id: product._id,
-                image: product.image_base_64.toString('base64')
+                /* image: product.image */
             }
         })
 

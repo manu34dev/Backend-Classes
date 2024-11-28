@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { authenticatedHeaders, POST } from "../../fetching/http.fetching";
+import { getauthenticatedHeaders, POST } from "../../fetching/http.fetching";
 import { extractFormData } from "../../Utils/extractFormData";
 
 const CreateProduct = () => {
@@ -23,7 +23,7 @@ const CreateProduct = () => {
         //Agrego la image al objeto de los valores del form
         formValuesObject.image = image
         const response = await POST ('http://localhost:3000/api/products', {
-            headers: authenticatedHeaders,
+            headers: getauthenticatedHeaders,
             body: JSON.stringify(formValuesObject)
         })
         console.log(response)

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { extractFormData } from "../../Utils/extractFormData";
 import useForm from "../../Hooks/useForm";
-import { unnauthenticatedHeaders } from "../../fetching/http.fetching";
+import { getunnauthenticatedHeaders } from "../../fetching/http.fetching";
 
 /* const extractFormData = (form_fields, form_values) => {
         for (let field in form_fields) {
@@ -28,7 +28,7 @@ const Register = () => {
         const body = POST (
             'http://localhost:3000/api/auth/register', 
             {
-                headers: unnauthenticatedHeaders,
+                headers: getunnauthenticatedHeaders,
                 body: JSON.stringify(form_values_state)
             }
             )

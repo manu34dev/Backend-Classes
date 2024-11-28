@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { authenticatedHeaders, GET  } from "../fetching/http.fetching"
+import { getauthenticatedHeaders, GET  } from "../fetching/http.fetching"
 import { useNavigate } from "react-router-dom"
 
 const ProductDetails = (product_id) =>{
@@ -11,7 +11,7 @@ const ProductDetails = (product_id) =>{
         const product_detail_response = await GET(
             `http://localhost:3000/api/products/${product_id}`, 
             {
-                headers: authenticatedHeaders()
+                headers: getauthenticatedHeaders()
             }
         )
         //Condiciones / manejo de errores de la peticion
