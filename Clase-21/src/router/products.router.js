@@ -9,7 +9,6 @@ import { createProductController,
 
 const productsRouter = express.Router();
 
-productsRouter.use(verifyApikeyMiddleware)
 
 productsRouter.get('/', verifyTokenMiddleware(), getAllProductsController)
 productsRouter.get('/:product_id', verifyTokenMiddleware(), getProductByIdController)

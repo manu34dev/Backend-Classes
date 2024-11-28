@@ -9,7 +9,15 @@ import ResponseBuilder from "../utils/builders/responseBuilder.js"
 //que devuelvo si todo esta bien?  Lista de productos activos [Products]
 export const getAllProductsController = async (req, res) => {
 try{
-        const products = await ProductRepository.getAllProducts()
+        const productsFromDb = await ProductRepository.getAllProducts()
+        const products = productsFromDb.map(product => {
+            return {
+                ...product._doc, 
+                id: product._id,
+                image: product.image_base_64.toString('base64')
+            }
+        })
+
         if(!products){
             const response = new ResponseBuilder()
             .setOk (false)
@@ -22,12 +30,12 @@ try{
             return res.status(404).json(response)
         }
 
-        const response = new ResponseBuilder()
+        const response = new ResponseBuilder()  
         .setOk (true)
         .setStatus (200)
         .setMessage ("Productos obtenidos")
         .setPayload ({
-            products: products
+            products
         })
         .build()
         return res.json(response)
@@ -75,8 +83,10 @@ export const getProductByIdController = async (req, res) => {
 export const createProductController = async (req, res) => {
         try{
             const {title, description, price, stock, category, image} = req.body
-            const seller_id= req.user_id
-
+            //const seller_id= req.user_id
+            const seller_id = req.user.id
+            console.log(seller_id)
+            console.log(req.headers)
             if (!title){
                 const response = new ResponseBuilder()
                 .setOk (false)
@@ -159,9 +169,11 @@ export const createProductController = async (req, res) => {
                 stock,
                 description: description,
                 category,
-                image_base_64: Buffer.from(image, 'base64'),
+                image_base_64: (image) ? Buffer.from(image, 'base64') : '',
                 seller_id
-            }
+            } 
+
+            
 
             const newProductSaved = await ProductRepository.createProduct(newProduct)
         const response = new ResponseBuilder()
