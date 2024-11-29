@@ -28,13 +28,16 @@ const ProductScreen = () => {
 }
 
 
-const ProductDetail = ({title, price, stock, descripcion, image_base_64, id}) => {
+const ProductDetail = ({title, price, stock, descripcion, image, id}) => {
+  
+  const image_base_64 ="data:image/jpg;base64" + Buffer.from(image, 'binary').toString('base64')
+  console.log ("imagen 64 saraza" , image_base_64)
   return (
     <div>
       <span> ID: {id}</span>
       <h2>{title}</h2>
       <img 
-        src={image_base_64} 
+        src= {image_base_64} 
         alt={title} 
         width={'200'} 
       />

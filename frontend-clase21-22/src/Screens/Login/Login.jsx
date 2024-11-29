@@ -18,7 +18,7 @@ const Login = () => {
         }
         const formValuesObject = extractFormData(form_fields, form_values)
         const response = await POST ('http://localhost:3000/api/auth/login', {
-            headers: getunnauthenticatedHeaders,
+            headers: getunnauthenticatedHeaders(),
             body: JSON.stringify(formValuesObject)
         })
         const accessToken = response.payload.token
@@ -41,7 +41,7 @@ const Login = () => {
                 <input name="email" id="email" placeholder="pepe@gmail.com"/>
             </div>
             <div>
-                <label htmlFor="password">Ingrese su nombre</label>
+                <label htmlFor="password">Ingrese su contraseña</label>
                 <input name="password" id="password" placeholder="contraseña"/>
             </div>
             <button type="submit">Iniciar sesion</button>

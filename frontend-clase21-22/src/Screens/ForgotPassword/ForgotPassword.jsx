@@ -18,7 +18,7 @@ const ForgotPassword = () => {
 			console.log(form_values_object)
 			const body = await POST('http://localhost:3000/api/auth/forgot-password', 
 			{
-				headers: getunnauthenticatedHeaders,
+				headers: getunnauthenticatedHeaders(),
 				body: JSON.stringify(form_values_object)
 			})
 			//const body = await sendEmailForgot(form_values_object)

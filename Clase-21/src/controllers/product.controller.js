@@ -14,7 +14,6 @@ try{
             return {
                 ...product._doc, 
                 id: product._id,
-                /* image: product.image */
             }
         })
 
@@ -169,7 +168,7 @@ export const createProductController = async (req, res) => {
                 stock,
                 description: description,
                 category,
-                image_base_64: (image) ? Buffer.from(image, 'base64') : '',
+                image: (image) ? Buffer.from(image, 'base64') : '',
                 seller_id
             } 
 

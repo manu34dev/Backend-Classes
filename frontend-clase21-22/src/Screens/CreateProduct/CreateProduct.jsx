@@ -23,7 +23,7 @@ const CreateProduct = () => {
         //Agrego la image al objeto de los valores del form
         formValuesObject.image = image
         const response = await POST ('http://localhost:3000/api/products', {
-            headers: getauthenticatedHeaders,
+            headers: getauthenticatedHeaders(),
             body: JSON.stringify(formValuesObject)
         })
         console.log(response)

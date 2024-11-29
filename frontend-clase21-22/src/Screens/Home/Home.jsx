@@ -34,8 +34,9 @@ const ProductsList = ({products}) => {
 	)
 }
 
-const Product = ({title, price, stock, description, image_base_64, id}) => {
-
+const Product = ({title, price, stock, description, image, id}) => {
+	const image_base_64 =/* "data:image/jpg;base64" + new */ Buffer.from(image, 'binary').toString('base64')
+console.log("rotura 64" , image)
 	return (
 		<div>
 			<h2>{title}</h2>
