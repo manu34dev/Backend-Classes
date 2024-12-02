@@ -58,7 +58,7 @@ const CreateProduct = () => {
         <form onSubmit ={handleSubmitNewProduct} >
             <div>
                 <label htmlFor="title">Ingrese el nombre del producto</label>
-                <input name="title" id="title" placeholder="Yerba Marolio"/>
+                <input name="title" id="title" placeholder="Producto"/>
             </div>
             <div>
                 <label htmlFor="description">Ingrese una descripcion</label>
@@ -66,19 +66,19 @@ const CreateProduct = () => {
             </div>
             <div>
                 <label htmlFor="price">Ingrese el precio del producto</label>
-                <input name="price" id="price" />
+                <input name="price" id="price" placeholder="100" />
             </div>
             <div>
                 <label htmlFor="stock">Ingrese el stock de su producto</label>
-                <input name="stock" id="stock"/>
+                <input name="stock" id="stock" placeholder="10"/>
             </div>
             <div>
                 <label htmlFor="category">Ingrese la categoria</label>
-                <input name="category" id="category"/>
+                <input name="category" id="category" placeholder="Electronica"/>
             </div>
             <div>
                 {
-                    image && 
+                image && 
                     <img src={image} alt={image} height="100px" width="100px"/>
                 }
                 <label htmlFor="image">Seleccione su imagen</label>

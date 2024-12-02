@@ -13,10 +13,6 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-/*     img: {
-        type: String,
-        required: true
-    }, */
     stock: {
         type: Number,
         required: true
@@ -31,13 +27,18 @@ const productSchema = new mongoose.Schema({
         default: true
     },
     image:{
-        type: Buffer
+        type: String
     },
     seller_id: {
         type: mongoose.Schema.Types.ObjectId, //debe ser el mismo tipo que el id de la coleccion del User
         ref: 'User',
         required: true
     },
+    /* product_id: {
+        type: mongoose.Schema.Types.ObjectId, //debe ser el mismo tipo que el id de la coleccion del User
+        ref: 'Product',
+        required: true
+    }, */
     created_at: {
         type: Date,
         default: Date.now

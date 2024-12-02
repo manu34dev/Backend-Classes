@@ -1,3 +1,4 @@
+import { get } from "mongoose"
 import ProductRepository from "../repositories/product.repository.js"
 import ResponseBuilder from "../utils/builders/responseBuilder.js"
 
@@ -51,6 +52,7 @@ export const getProductByIdController = async (req, res) => {
         try{
             const {product_id} = req.params
             const product_found = await ProductRepository.getProductById(product_id)
+            console.log(product_found._id)
 
             if (!product_found) {
                 const response = new ResponseBuilder()
@@ -157,7 +159,7 @@ export const createProductController = async (req, res) => {
                 return res.status(400).json(response)
             }
 
-            if(image && Buffer.byteLength(image, 'base64') > 2 * 1024 * 1024){
+            if(image.toString() /* && Buffer.byteLength(image, 'base64') */ > 2 * 1024 * 1024){
                 console.error('Imagen muy grande')
                 return res.sendStatus(400)
             }
@@ -168,7 +170,8 @@ export const createProductController = async (req, res) => {
                 stock,
                 description: description,
                 category,
-                image: (image) ? Buffer.from(image, 'base64') : '',
+                /* image: (image) ? Buffer.from(image, 'base64') : '', */
+                image: image.toString(),
                 seller_id
             } 
 

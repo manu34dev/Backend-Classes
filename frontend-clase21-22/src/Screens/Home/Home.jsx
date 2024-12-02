@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 //import { authenticatedHeaders, GET, unnauthenticatedHeaders} from '../../fetching/http.fetching'
 import useProducts from "../../Hooks/useProducts";
+import UpdateProduct from "../UpdateProduct/UpdateProduct";
 
 
 const Home = () => {
@@ -35,18 +36,21 @@ const ProductsList = ({products}) => {
 }
 
 const Product = ({title, price, stock, description, image, id}) => {
-	const image_base_64 =/* "data:image/jpg;base64" + new */ Buffer.from(image, 'binary').toString('base64')
-console.log("rotura 64" , image)
+
 	return (
 		<div>
 			<h2>{title}</h2>
 			<img 
-                    src={image_base_64} 
+                    src={image} 
                     alt={title} 
                     width={'200'} 
                 />
 			<span>Precio: ${price}</span>
+			<br />
 			<Link to={'/product/' + id}>Ir a detalle</Link>
+			<br />
+			<Link to={'/product/' + id + '/edit'}>Editar producto</Link>
+{/* 			<UpdateProduct/> */}
 		</div>
 	)
 }
