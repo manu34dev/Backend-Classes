@@ -50,6 +50,8 @@ const Product = ({title, price, stock, description, image, id}) => {
 			<Link to={'/product/' + id}>Ir a detalle</Link>
 			<br />
 			<Link to={'/product/' + id + '/edit'}>Editar producto</Link>
+			<br />
+			<Link to={'/product/' + id + '/delete'}>Eliminar producto</Link>
 {/* 			<UpdateProduct/> */}
 		</div>
 	)

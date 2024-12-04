@@ -1,36 +1,30 @@
-import {React , useEffect, useState} from "react";
+import { React, useState } from "react";
 import { extractFormData } from "../../Utils/extractFormData";
-import useForm from "../../Hooks/useForm";
-import { GET, getauthenticatedHeaders, PUT } from "../../fetching/http.fetching";
+import { getauthenticatedHeaders, PUT } from "../../fetching/http.fetching";
+import { useParams } from 'react-router-dom'
+import PreviousProductUpdate from '../../Hooks/preProductUpdate.jsx'
 
 
-const UpdateProduct = (product_id) => {
-    const [product_detail_state, setProductDetailState] = useState(null)
-    const getProductDetail = async (product_id) =>{
-        const product_detail_response = await GET(
-            `http://localhost:3000/api/products/${product_id}`, 
-            {
-                headers: getauthenticatedHeaders()
-            }
-        )
+const UpdateProduct = () => {
 
-        setProductDetailState(product_detail_response.payload.product)
-}
+    const {product_id} = useParams()
+    console.log({product_id})
 
-useEffect(
-    () =>{
-        getProductDetail(product_id)
-    },
-    []
-)
-const { form_values_state, handleChangeInputValue }  =  useForm({
-    title: "",
-    description: "",
-    price: "",
-    stock: "",
-    category: "",
-}
-)
+    //Llamar al hook PreviousProductUpdate
+    let { product_detail_state, product_detail_loading, product_detail_error} = PreviousProductUpdate(product_id)
+
+    console.log('product_detail_state: ', product_detail_state)
+
+    const [title, setTitle] = useState(product_detail_state?.title)
+    const [description, setDescription] = useState(product_detail_state?.description)
+
+    function handleTextChange(e) {
+        setTitle(e.target.value);
+    }
+
+    function handleDescriptionChange(e) {
+        setDescription(e.target.value);
+    }
 
     const handleSubmitUpdateProduct = async (e) => {
         try {
@@ -70,27 +64,28 @@ return (
         <form onSubmit={handleSubmitUpdateProduct}>
             <div>
                 <label htmlFor="title">Ingere el nuevo titulo</label>
-                <input type="text" name="title" value={product_detail_state?.title} placeholder="Titulo" onChange={handleChangeInputValue} />
+                <input type="text" name="title" value={title} onChange={handleTextChange} placeholder="Titulo"  />
             </div>
             <div>
                 <label htmlFor="description">Ingrese la nueva descripcion</label>
-                <textarea name="description" id="description" placeholder="Descripcion" onChange={handleChangeInputValue}></textarea>
+                <textarea name="description" id="description" value={description} onChange={handleDescriptionChange} placeholder="Descripcion" ></textarea>
             </div>
             <div>
                 <label htmlFor="price">Ingrese el nuevo precio</label>
-                <input type="text" name="price" placeholder="100" onChange={handleChangeInputValue} />
+                <input type="text" name="price" placeholder="100"  />
             </div>
             <div>
                 <label htmlFor="stock">Ingrese el nuevo stock</label>
-                <input type="text" name="stock" placeholder="10" onChange={handleChangeInputValue} />
+                <input type="text" name="stock" placeholder="10"  />
             </div>
             <div>
                 <label htmlFor="category">Ingrese la nueva categoria</label>
-                <input type="text" name="category"  placeholder="Electronica" onChange={handleChangeInputValue} />
+                <input type="text" name="category"  placeholder="Electronica"  />
             </div>
+            {/* <div>Agregar Imagen Actual</div> */}
             <div>
                 <label htmlFor="image">Ingrese la nueva imagen</label>
-                <input type="file" name="image" onChange={(e) => setImage(e.target.files[0])} />
+                <input type="file" name="image" /*onChange={(e) => setImage(e.target.files[0])}*/ />
             </div>
             <button type="submit">Actualizar producto</button>
         </form>

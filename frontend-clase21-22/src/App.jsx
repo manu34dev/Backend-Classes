@@ -8,6 +8,7 @@ import Home from './Screens/Home/home'
 import CreateProduct from './Screens/CreateProduct/CreateProduct'
 import ProductsScreen from './Screens/ProductsScreen/ProductsScreen'
 import UpdateProduct from './Screens/UpdateProduct/UpdateProduct'
+import DeleteProduct from './Screens/DeleteProduct/deleteProduct'
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
       <Route path="/product/new" element={<CreateProduct/>}/>
       <Route path="/product/:product_id" element={<ProductsScreen />}/>
       <Route path="/product/:product_id/edit" element={<UpdateProduct/>}/>
+      <Route path="/product/:product_id/delete" element={<DeleteProduct/>}/>
     </Routes>
     </>
   )
