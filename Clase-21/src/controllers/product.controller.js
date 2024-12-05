@@ -208,8 +208,6 @@ export const updateProductController = async (req, res) => {
             const {product_id} = req.params
             const {title, description, price, stock, category} = req.body
 
-            console.log("body: " + JSON.stringify(req.body))
-
             if (!title|| !description || !price || !category || !stock) {
                 const response = new ResponseBuilder()
                 .setOk (false)
@@ -252,10 +250,10 @@ export const updateProductController = async (req, res) => {
     }
 
 
-export const deleteProductController = (req, res) => {
+export const deleteProductController = async (req, res) => {
         try{
             const {product_id} = req.params
-            const product_deleted = ProductRepository.deleteProduct(product_id)
+            const product_deleted = await ProductRepository.deleteProduct(product_id)
 
             if (!product_deleted) {
                 const response = new ResponseBuilder()

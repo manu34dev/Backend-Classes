@@ -19,7 +19,6 @@ const CreateProduct = () => {
             category : '',
         }
         const formValuesObject = extractFormData(form_fields, form_values)
-        console.log(formValuesObject)
         //Agrego la image al objeto de los valores del form
         formValuesObject.image = image
         const response = await POST ('http://localhost:3000/api/products', {
