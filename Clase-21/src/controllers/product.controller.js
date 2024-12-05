@@ -203,10 +203,12 @@ export const createProductController = async (req, res) => {
         }
     }
 
-export const updateProductController = (req, res) => {
+export const updateProductController = async (req, res) => {
         try{
             const {product_id} = req.params
             const {title, description, price, stock, category} = req.body
+
+            console.log("body: " + JSON.stringify(req.body))
 
             if (!title|| !description || !price || !category || !stock) {
                 const response = new ResponseBuilder()
@@ -220,15 +222,27 @@ export const updateProductController = (req, res) => {
                 return res.status(400).json(response)
             }
 
-            const product_updated = ProductRepository.updateProduct(product_id, title, description, price, stock, category)
+            const new_product_data = {
+                title: title,
+                description: description,
+                price: price,
+                stock: stock,
+                category: category
+            }
+
+            const product_updated = await ProductRepository.updateProduct(product_id, new_product_data)
+
+            //console.log("product_updated: " + product_updated)
+
             const response = new ResponseBuilder()
-            .setOk (true)
-            .setStatus (200)
-            .setMessage ("Product updated")
-            .setPayload ({
-                product: product_updated
-            })
-            .build()
+                .setOk (true)
+                .setStatus (200)
+                .setMessage ("Product updated")
+                .setPayload ({
+                    product: product_updated
+                })
+                .build()
+
             return res.json(response)
         }
 

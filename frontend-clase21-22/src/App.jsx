@@ -7,8 +7,9 @@ import ResetPassword from './Screens/ResetPassword/ResetPassword'
 import Home from './Screens/Home/home'
 import CreateProduct from './Screens/CreateProduct/CreateProduct'
 import ProductsScreen from './Screens/ProductsScreen/ProductsScreen'
-import UpdateProduct from './Screens/UpdateProduct/UpdateProduct'
+/* import UpdateProduct from './Screens/UpdateProduct/UpdateProduct' */
 import DeleteProduct from './Screens/DeleteProduct/deleteProduct'
+import UpdateProduct from './Screens/ReUpdateProduct/ReUpdateProduct'
 
 function App() {
 

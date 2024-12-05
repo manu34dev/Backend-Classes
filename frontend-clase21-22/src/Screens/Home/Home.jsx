@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 //import { authenticatedHeaders, GET, unnauthenticatedHeaders} from '../../fetching/http.fetching'
 import useProducts from "../../Hooks/useProducts";
-import UpdateProduct from "../UpdateProduct/UpdateProduct";
+import UpdateProduct from "../ReUpdateProduct/ReUpdateProduct";
 
 
 const Home = () => {
@@ -52,7 +52,7 @@ const Product = ({title, price, stock, description, image, id}) => {
 			<Link to={'/product/' + id + '/edit'}>Editar producto</Link>
 			<br />
 			<Link to={'/product/' + id + '/delete'}>Eliminar producto</Link>
-{/* 			<UpdateProduct/> */}
+{/* { 			<UpdateProduct/> } */}
 		</div>
 	)
 }

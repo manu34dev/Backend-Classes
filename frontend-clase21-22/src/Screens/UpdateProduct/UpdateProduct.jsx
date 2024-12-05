@@ -10,8 +10,7 @@ const UpdateProduct = () => {
     const {product_id} = useParams()
     console.log({product_id})
 
-    //Llamar al hook PreviousProductUpdate
-    let { product_detail_state, product_detail_loading, product_detail_error} = PreviousProductUpdate(product_id)
+    const { product_detail_state, product_detail_loading, product_detail_error} = PreviousProductUpdate(product_id)
 
     console.log('product_detail_state: ', product_detail_state)
 
@@ -26,31 +25,31 @@ const UpdateProduct = () => {
         setDescription(e.target.value);
     }
 
-    const handleSubmitUpdateProduct = async (e) => {
+    const handleSubmitUpdateProduct = (e) => {
         try {
             e.preventDefault();
             const form_HTML = e.target;
             const form_values = new FormData(form_HTML);
             const form_fields = {
-                title: "",
-                description: "",    
-                price: "",    
-                stock: "",    
-                category: "",    
+                "title": "",
+                "description": "",    
+                "price": "",    
+                "stock": "",    
+                "category": "",    
             };
 
             const formValuesObject = extractFormData(form_fields, form_values);
             console.log(formValuesObject);
             //Agrego la image al objeto de los valores del form
-            formValuesObject.image = image;
+            formValuesObject.image = image; 
 
-            const response = await PUT(
-                "http://localhost:3000/api/products_id/edit",
+            const response = PUT(
+                fetch("http://localhost:3000/api/:product_id/edit",
                 {
                     headers: getauthenticatedHeaders(),
                     body: JSON.stringify(formValuesObject),
                 }
-            );
+            ));
             console.log(response);
 
         } catch (error) {
@@ -58,10 +57,11 @@ const UpdateProduct = () => {
         }
     }
 
+
 return (
     <div>
         <h1>Editar Product</h1>
-        <form onSubmit={handleSubmitUpdateProduct}>
+        <form onSubmit={handleSubmitUpdateProduct} method="PUT">
             <div>
                 <label htmlFor="title">Ingere el nuevo titulo</label>
                 <input type="text" name="title" value={title} onChange={handleTextChange} placeholder="Titulo"  />
@@ -84,8 +84,8 @@ return (
             </div>
             {/* <div>Agregar Imagen Actual</div> */}
             <div>
-                <label htmlFor="image">Ingrese la nueva imagen</label>
-                <input type="file" name="image" /*onChange={(e) => setImage(e.target.files[0])}*/ />
+ {/*                <label htmlFor="image">Ingrese la nueva imagen</label>
+                <input type="file" name="image" /> */}
             </div>
             <button type="submit">Actualizar producto</button>
         </form>
@@ -93,4 +93,4 @@ return (
 )
 }
 
-export default UpdateProduct
+/* export default UpdateProduct */
