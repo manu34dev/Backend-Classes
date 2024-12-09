@@ -7,9 +7,9 @@ import ResetPassword from './Screens/ResetPassword/ResetPassword'
 import Home from './Screens/Home/Home'
 import CreateProduct from './Screens/CreateProduct/CreateProduct'
 import ProductsScreen from './Screens/ProductsScreen/ProductsScreen'
-/* import UpdateProduct from './Screens/UpdateProduct/UpdateProduct' */
 import DeleteProduct from './Screens/DeleteProduct/deleteProduct'
 import UpdateProduct from './Screens/UpdateProduct/UpdateProduct'
+import Verify from './Screens/Verify/Verify'
 
 function App() {
 
@@ -21,6 +21,7 @@ function App() {
       <Route path="/register" element={<Register />}/> 
       <Route path="/forgot-password" element={<ForgotPassword />}/>
       <Route path="/reset-password/:reset_token" element={<ResetPassword />}/>
+      <Route path="/verify/:token" element={<Verify />}/> 
       <Route path="/home" element={<Home />}/>
       <Route path="/product/new" element={<CreateProduct/>}/>
       <Route path="/product/:product_id" element={<ProductsScreen />}/>

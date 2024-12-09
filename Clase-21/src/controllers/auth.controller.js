@@ -5,8 +5,6 @@ import ResponseBuilder from "../utils/builders/responseBuilder.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import UserRepository from "../repositories/user.repository.js"
-import { Router } from "express"
-import { resolveContent } from "nodemailer/lib/shared/index.js"
 
 export const registerUserController = async (req, res) => {
     try {
@@ -24,7 +22,6 @@ export const registerUserController = async (req, res) => {
         }
 
         const userExists = await User.findOne({ email: email })
-        console.log(userExists)
 
         if (userExists) {
             const response = new ResponseBuilder()
@@ -43,7 +40,7 @@ export const registerUserController = async (req, res) => {
             expiresIn: '1d'
         })
 
-        const url_verification =`http://localhost:${ENVIROMENT.PORT}/api/auth/verify/${verificationToken}`
+        const url_verification =`http://localhost:5173/verify/${verificationToken}`
 
         await sendEmail({
             to: email,
@@ -61,9 +58,11 @@ export const registerUserController = async (req, res) => {
             email: email,
             password: hashPassword,
             emailVerified: false,
-            verifucationToken: verificationToken
+            verificationToken: verificationToken
         })
-        await newUser.save()
+        
+        const saveResult = await newUser.save()
+        console.log("saveResult: ", saveResult)
 
         const response = new ResponseBuilder()
         .setOk(true)
@@ -210,7 +209,7 @@ export const LoginController = async (req, res) => {
         build()
         res.json(response)
     }
-    }
+}
 
 export const forgorPasswordController = async (req, res) => {
         try {
@@ -270,87 +269,87 @@ export const forgorPasswordController = async (req, res) => {
             .build()
             res.json(response)
         }
-    }
+}
     
-    export const ResetTokenController = async (req, res) => {
-        try{
-            const {password} = req.body
-            const {reset_token} = req.params
+export const ResetTokenController = async (req, res) => {
+    try{
+        const {password} = req.body
+        const {reset_token} = req.params
 
-            if (!password) {
-                const response = new ResponseBuilder()
-                .setOk (false)
-                .setStatus (400)
-                .setMessage ("Password required")
-                .setPayload ({
-                    detail: "Password required"
-                })
-                .build()
-                return res.json(response)
-            }
-
-            if (!reset_token) {
-                const response = new ResponseBuilder()
-                .setOk (false)
-                .setStatus (400)
-                .setMessage ("Bad request")
-                .setPayload ({
-                    detail: "Reset token expired or invalid"
-                })
-                .build()
-                return res.json(response)
-            }
-
-            const decodedToken = jwt.verify(reset_token, ENVIROMENT.JWT_SECRET)
-            if (!decodedToken) {
-                const response = new ResponseBuilder()
-                .setOk (false)
-                .setStatus (400)                
-                .setMessage ("Bad request")
-                .setPayload ({
-                    detail: "Failed to verify token"
-                })
-                .build()
-                return res.json(response)
-                }
-
-                const {email} = decodedToken
-                const user = await UserRepository.getByEmail(email)
-                if (!user) {
-                    const response = new ResponseBuilder()
-                    .setOk (false)
-                    .setStatus (404)
-                    .setMessage ("User not found")
-                    .setPayload ({
-                        detail: "User not found"
-                    })
-                    .build()
-                    return res.json(response)
-                }
-
-            const encryptedPassword = await bcrypt.hash(password, 10)
-            user.password = encryptedPassword
-            await user.save()
-            const response = new ResponseBuilder()
-            .setOk (true)
-            .setStatus (200)
-            .setMessage ("Password updated")
-            .setPayload ({
-                detail: "Password updated"
-            })
-            .build()
-            res.json(response)
-            } 
-
-        catch (error) {
+        if (!password) {
             const response = new ResponseBuilder()
             .setOk (false)
-            .setStatus (500)
-            .setMessage ("Internal server error")
+            .setStatus (400)
+            .setMessage ("Password required")
             .setPayload ({
-                detail: ""
+                detail: "Password required"
             })
             .build()
-            res.json(response)
+            return res.json(response)
         }
+
+        if (!reset_token) {
+            const response = new ResponseBuilder()
+            .setOk (false)
+            .setStatus (400)
+            .setMessage ("Bad request")
+            .setPayload ({
+                detail: "Reset token expired or invalid"
+            })
+            .build()
+            return res.json(response)
+        }
+
+        const decodedToken = jwt.verify(reset_token, ENVIROMENT.JWT_SECRET)
+        if (!decodedToken) {
+            const response = new ResponseBuilder()
+            .setOk (false)
+            .setStatus (400)                
+            .setMessage ("Bad request")
+            .setPayload ({
+                detail: "Failed to verify token"
+            })
+            .build()
+            return res.json(response)
+            }
+
+            const {email} = decodedToken
+            const user = await UserRepository.getByEmail(email)
+            if (!user) {
+                const response = new ResponseBuilder()
+                .setOk (false)
+                .setStatus (404)
+                .setMessage ("User not found")
+                .setPayload ({
+                    detail: "User not found"
+                })
+                .build()
+                return res.json(response)
+            }
+
+        const encryptedPassword = await bcrypt.hash(password, 10)
+        user.password = encryptedPassword
+        await user.save()
+        const response = new ResponseBuilder()
+        .setOk (true)
+        .setStatus (200)
+        .setMessage ("Password updated")
+        .setPayload ({
+            detail: "Password updated"
+        })
+        .build()
+        res.json(response)
+        } 
+
+    catch (error) {
+        const response = new ResponseBuilder()
+        .setOk (false)
+        .setStatus (500)
+        .setMessage ("Internal server error")
+        .setPayload ({
+            detail: ""
+        })
+        .build()
+        res.json(response)
     }
+}
