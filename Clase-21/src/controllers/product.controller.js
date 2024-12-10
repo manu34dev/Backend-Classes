@@ -84,7 +84,6 @@ export const getProductByIdController = async (req, res) => {
 export const createProductController = async (req, res) => {
         try{
             const {title, description, price, stock, category, image} = req.body
-            //const seller_id= req.user_id
             const seller_id = req.user.id
             console.log(seller_id)
             console.log(req.headers)

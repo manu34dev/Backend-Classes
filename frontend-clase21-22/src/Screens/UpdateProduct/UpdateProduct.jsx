@@ -27,17 +27,7 @@ const UpdateProduct = () => {
         })
         .then(
             (response) => { 
-                console.log({ response }) 
                 return response.json()
-            }
-        )
-        .then(
-            (body) => {
-                //Si hubiera algun error, lo imprimen usando el valor de body
-                //Por ejemplo, pueden cambiar el estado para que aparezca un error
-                if(!body.ok){
-                  //setError()
-            }
             }
         )
         .catch(
@@ -45,63 +35,49 @@ const UpdateProduct = () => {
         )
     }
 
-    /* const handleChangeFile = (e) => {
-        //Buscar el archivo subido por el input
-        const file_found = e.target.files[0]
-        const reader = new FileReader()
-
-        //Le digo al reader que cuando termine de cargar ejecute X callback 
-        reader.onloadend = 
-            () => {
-            console.log('File Loaded')
-            setImage(reader.result)
-        }
-    
-
-        //Le digo al reader que lea el archivo
-        if (file_found) {
-            reader.readAsDataURL(file_found)
-        }
-    } */
-
-
     return (
-        <div>
-            <h1>UpdateProduct</h1>
-            <div>
-                <form onSubmit={handleSubmitUpdateProduct}>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand">Actualiza tu producto</a>
+                    <form onSubmit={handleSubmitUpdateProduct}>
+                        <div>
+                            <label htmlFor="title">ingrese nuevo titulo</label>
+                            <input name="title" type="text" id="title" />
+                        </div>
+                        <div>
+                            <label htmlFor="description">ingrese nueva descripcion</label>
+                            <textarea name="description" id="description"></textarea>
+                        </div>
+                        <div>
+                            <label htmlFor="price">ingrese nuevo precio</label>
+                            <input name="price" type="text" id="price"/>
+                        </div>
+                        <div>
+                            <label htmlFor="stock">ingrese nuevo stock</label>
+                            <input name="stock" type="text" id="stock"/>
+                        </div>
+                        {/* <div>
+                            {
+                            image && 
+                                <img src={image} alt={image} height="100px" width="100px"/>
+                            }
+                            <label htmlFor="image">Seleccione su imagen</label>
+                            <input name="image" id="image" type="file" onChange={handleChangeFile} accept="image/*"/>
+                        </div> */}
+                        <div>
+                            <label htmlFor="category">ingrese nueva</label>
+                            <input name="category" type="text" id="category"/>
+                        </div>
+                        <br />
+                        <button class="btn btn-outline-dark" type="submit">Actualizar producto</button>
+                    </form>
                     <div>
-                        <label htmlFor="title">ingrese nuevo titulo</label>
-                        <input name="title" type="text" id="title" />
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href='/home'>Volver al inicio</a></div>
                     </div>
-                    <div>
-                        <label htmlFor="description">ingrese nueva descripcion</label>
-                        <textarea name="description" id="description"></textarea>
-                    </div>
-                    <div>
-                        <label htmlFor="price">ingrese nuevo precio</label>
-                        <input name="price" type="text" id="price"/>
-                    </div>
-                    <div>
-                        <label htmlFor="stock">ingrese nuevo stock</label>
-                        <input name="stock" type="text" id="stock"/>
-                    </div>
-                    {/* <div>
-                        {
-                        image && 
-                            <img src={image} alt={image} height="100px" width="100px"/>
-                        }
-                        <label htmlFor="image">Seleccione su imagen</label>
-                        <input name="image" id="image" type="file" onChange={handleChangeFile} accept="image/*"/>
-                    </div> */}
-                    <div>
-                        <label htmlFor="category">ingrese nueva</label>
-                        <input name="category" type="text" id="category"/>
-                    </div>
-                    <button type="submit">Actualizar</button>
-                </form>
             </div>
-        </div>
+        </nav>
+    </body>
     )
 }
 

@@ -19,7 +19,6 @@ const CreateProduct = () => {
             category : '',
         }
         const formValuesObject = extractFormData(form_fields, form_values)
-        //Agrego la image al objeto de los valores del form
         formValuesObject.image = image
         const response = await POST ('http://localhost:3000/api/products', {
             headers: getauthenticatedHeaders(),
@@ -34,19 +33,13 @@ const CreateProduct = () => {
     }
 
     const handleChangeFile = (e) => {
-        //Buscar el archivo subido por el input
         const file_found = e.target.files[0]
-        const reader = new FileReader()
-
-        //Le digo al reader que cuando termine de cargar ejecute X callback 
+        const reader = new FileReader() 
         reader.onloadend = 
             () => {
             console.log('File Loaded')
             setImage(reader.result)
         }
-    
-
-        //Le digo al reader que lea el archivo
         if (file_found) {
             reader.readAsDataURL(file_found)
         }
@@ -56,7 +49,7 @@ const CreateProduct = () => {
     <body> 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#!">Registrate su producto</a>
+                <a class="navbar-brand" href="#!">Registre su producto</a>
                         <form onSubmit ={handleSubmitNewProduct} >
                             <div >
                                 <label htmlFor="title">Ingrese el nombre del producto</label>
@@ -83,15 +76,15 @@ const CreateProduct = () => {
                                 image && 
                                     <img src={image} alt={image} height="100px" width="100px"/>
                                 }
-                                <label htmlFor="image">Seleccione su imagen</label>
+                                <label htmlFor="image">Seleccione una imagen</label>
                                 <input name="image" id="image" type="file" onChange={handleChangeFile} accept="image/*"/>
                             </div>
+                            <br />
                             <button class="btn btn-outline-dark" type="submit">Crear producto</button>
-                            <div>
-                                {/* <div class="text-center"><a class="btn btn-outline-dark mt-auto" href='/home'>Volver al inicio</a></div> */}
-                                <li class="nav-item"><a class="nav-link active" aria-current="page" href='/home'>Volver al inicio</a></li>
-                            </div>
                         </form>
+                        <div>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href='/home'>Volver al inicio</a></div>
+                        </div>
             </div>
         </nav>
     </body>

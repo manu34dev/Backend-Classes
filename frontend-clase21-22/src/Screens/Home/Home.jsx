@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-//import { authenticatedHeaders, GET, unnauthenticatedHeaders} from '../../fetching/http.fetching'
+/* import { Link } from "react-router-dom"; */
 import useProducts from "../../Hooks/useProducts";
 import { getauthenticatedHeaders } from "../../fetching/http.fetching"
 
@@ -18,11 +17,11 @@ const Home = () => {
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href='/product/new'>Crear Producto</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href='/product/new'>Registra tu producto</a></li>
                         </ul>
                 </div>
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href='/'>Log out</a></div>
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href='/'>Cerrar sesion</a></div>
                     </div>
             </div>
         </nav>
@@ -85,7 +84,7 @@ const DeleteProduct = (product_id) => {
     .catch((error) => { console.error(error) })
 }
 
-const Product = ({title, price, stock, description, image, id}) => {
+const Product = ({title, price, image, id}) => {
     return (
         
         <div class="col mb-5">

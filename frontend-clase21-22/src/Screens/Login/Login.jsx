@@ -23,7 +23,11 @@ const Login = () => {
                 headers: getunnauthenticatedHeaders(),
                 body: JSON.stringify(formValuesObject)
             })
-            
+            if(response.payload.token === undefined) {
+                console.log(response)
+                return
+            }
+                
             const accessToken = response.payload.token
             sessionStorage.setItem('accessToken', accessToken)
             sessionStorage.setItem('user_info', JSON.stringify(response.payload.user))
@@ -35,22 +39,64 @@ const Login = () => {
         
     }
 
+    const onBlurEmail = (e) =>
+    {
+        e.preventDefault()
+        const value = e.target.value
+
+        const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+        const isValid = pattern.test(value);
+
+        const errorContainer = document.getElementById("error-msg");
+
+        if(!isValid) {
+            errorContainer.style.visibility = "visible";
+            errorContainer.style.color = "red";
+            errorContainer.innerText = "El Email es Incorrecto"
+        }
+        else {
+            errorContainer.style.visibility = "hidden";
+            errorContainer.style.color = "red";
+            errorContainer.innerText = ""
+        }
+    }
+
+    const onBlurPassword = (e) => {
+        e.preventDefault()
+        const value = e.target.value
+
+        const errorContainer = document.getElementById("error-msg");
+
+        if(!isNaN(value)) {
+            errorContainer.style.visibility = "visible";
+            errorContainer.style.color = "red";
+            errorContainer.innerText = "Debe ingresar un password"
+        }
+        else {
+            errorContainer.style.visibility = "hidden";
+            errorContainer.style.color = "red";
+            errorContainer.innerText = ""
+        }
+    }
+
     return (
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#!">Login</a>
+                <a class="navbar-brand">Login</a>
                         <form onSubmit={handleSubmitLoginForm}>
                             <div>
-                                <label htmlFor="email">Ingrese su nombre</label>
-                                <input name="email" id="email" placeholder="pepe@gmail.com"/>
+                                <label htmlFor="email">Ingrese su email</label>
+                                <input name="email" id="email" placeholder="mail@gmail.com" required="true" onBlur={onBlurEmail}/>
                             </div>
                             <div>
                                 <label htmlFor="password">Ingrese su contraseña</label>
-                                <input name="password" id="password" placeholder="contraseña"/>
+                                <input type ="password"name="password" id="password" placeholder="contraseña" required="true" onBlur={onBlurPassword}/>
                             </div>
                             <br />
                             <button class="btn btn-outline-dark" type="submit">Iniciar sesion</button>
+                            <br />
+                            <p id="error-msg" style={{visibility: "hidden", color: "red"}}>Email or Password is incorrect</p>
                         </form>
                     <div>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
@@ -79,7 +125,7 @@ const Login = () => {
         </footer>
         
     </body>
-        )
+    )
 };
 
 export default Login;
